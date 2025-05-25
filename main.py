@@ -34,9 +34,10 @@ elif st.session_state.page == 1:
     if "Другое" in q2_selected:
         st.text_input("Уточните, что вы имели в виду под 'Другое':", key="q2_other")
 
-    st.text_input("3. Элемент 1 маркировки, который должен быть выделен:", key="q3_1")
-    st.text_input("Элемент 2 маркировки, который должен быть выделен:", key="q3_2")
-    st.text_input("Элемент 3 маркировки, который должен быть выделен:", key="q3_3")
+    st.markdown("3. Напишите, какие 3 элемента маркировки, по Вашему мнению, должны быть выделены наиболее заметно на упаковке любой пищевой продукции?")
+    st.text_input("Элемент 1:", key="q3_1")
+    st.text_input("Элемент 2:", key="q3_2")
+    st.text_input("Элемент 3:", key="q3_3")
 
     col1, col2 = st.columns(2)
     with col1:
@@ -48,16 +49,198 @@ elif st.session_state.page == 1:
 elif st.session_state.page == 2:
     st.header("Блок 2. MaxDiff: важность информации на упаковке")
 
-    for i in range(4, 13):
-        st.markdown(f"**Вопрос {i}**")
-        st.radio(f"Наиболее важная информация:", [f"{j+1}" for j in range(4)], key=f"m{i}")
-        st.radio(f"Наименее важная информация:", [f"{j+1}" for j in range(4)], key=f"l{i}")
+    maxdiff_has_error = False
+
+    st.markdown("### Вопрос 4")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m1 = st.radio("", ["Рекомендации и/или ограничения по использованию",
+                           "Количество (или объем) пищевой продукции",
+                           "Условия хранения",
+                           "Дата изготовления"], key="m1")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l1 = st.radio("", ["Рекомендации и/или ограничения по использованию",
+                           "Количество (или объем) пищевой продукции",
+                           "Условия хранения",
+                           "Дата изготовления"], key="l1")
+    st.markdown("---")
+    if st.session_state.get("m1") == st.session_state.get("l1"):
+        st.warning("⚠️ Вопрос 4: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 5")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m2 = st.radio("", [
+        "Состав",
+        "Срок годности",
+        "Пищевая ценность (содержание или отсутствие определённых веществ)",
+        "Наличие знака обращения на рынке ЕАЭС (EAC)"
+    ], key="m2")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l2 = st.radio("", [
+        "Состав",
+        "Срок годности",
+        "Пищевая ценность (содержание или отсутствие определённых веществ)",
+        "Наличие знака обращения на рынке ЕАЭС (EAC)"
+    ], key="l2")
+    st.markdown("---")
+    if st.session_state.get("m2") == st.session_state.get("l2"):
+        st.warning("⚠️ Вопрос 5: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 6")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m3 = st.radio("", [
+        "Наличие знака обращения на рынке ЕАЭС (EAC)",
+        "Состав",
+        "Наименование и местонахождение изготовителя",
+        "Рекомендации и/или ограничения по использованию"
+    ], key="m3")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l3 = st.radio("", [
+        "Наличие знака обращения на рынке ЕАЭС (EAC)",
+        "Состав",
+        "Наименование и местонахождение изготовителя",
+        "Рекомендации и/или ограничения по использованию"
+    ], key="l3")
+    st.markdown("---")
+    if st.session_state.get("m3") == st.session_state.get("l3"):
+        st.warning("⚠️ Вопрос 6: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 7")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m4 = st.radio("", [
+        "Наименование и местонахождение изготовителя",
+        "Условия хранения",
+        "Срок годности",
+        "Пищевая ценность (содержание или отсутствие определённых веществ)"
+    ], key="m4")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l4 = st.radio("", [
+        "Наименование и местонахождение изготовителя",
+        "Условия хранения",
+        "Срок годности",
+        "Пищевая ценность (содержание или отсутствие определённых веществ)"
+    ], key="l4")
+    st.markdown("---")
+    if st.session_state.get("m4") == st.session_state.get("l4"):
+        st.warning("⚠️ Вопрос 7: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 8")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m5 = st.radio("", [
+        "Дата изготовления",
+        "Наличие знака обращения на рынке ЕАЭС (EAC)",
+        "Состав",
+        "Условия хранения"
+    ], key="m5")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l5 = st.radio("", [
+        "Дата изготовления",
+        "Наличие знака обращения на рынке ЕАЭС (EAC)",
+        "Состав",
+        "Условия хранения"
+    ], key="l5")
+    st.markdown("---")
+    if st.session_state.get("m5") == st.session_state.get("l5"):
+        st.warning("⚠️ Вопрос 8: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 9")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m6 = st.radio("", [
+        "Пищевая ценность (содержание или отсутствие определённых веществ)",
+        "Дата изготовления",
+        "Рекомендации и/или ограничения по использованию",
+        "Срок годности"
+    ], key="m6")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l6 = st.radio("", [
+        "Пищевая ценность (содержание или отсутствие определённых веществ)",
+        "Дата изготовления",
+        "Рекомендации и/или ограничения по использованию",
+        "Срок годности"
+    ], key="l6")
+    st.markdown("---")
+    if st.session_state.get("m6") == st.session_state.get("l6"):
+        st.warning("⚠️ Вопрос 9: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 10")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m7 = st.radio("", [
+        "Срок годности",
+        "Наименование и местонахождение изготовителя",
+        "Количество (или объем) пищевой продукции",
+        "Состав"
+    ], key="m7")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l7 = st.radio("", [
+        "Срок годности",
+        "Наименование и местонахождение изготовителя",
+        "Количество (или объем) пищевой продукции",
+        "Состав"
+    ], key="l7")
+    st.markdown("---")
+    if st.session_state.get("m7") == st.session_state.get("l7"):
+        st.warning("⚠️ Вопрос 10: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 11")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m8 = st.radio("", [
+        "Количество (или объем) пищевой продукции",
+        "Пищевая ценность (содержание или отсутствие определённых веществ)",
+        "Дата изготовления",
+        "Наименование и местонахождение изготовителя"
+    ], key="m8")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l8 = st.radio("", [
+        "Количество (или объем) пищевой продукции",
+        "Пищевая ценность (содержание или отсутствие определённых веществ)",
+        "Дата изготовления",
+        "Наименование и местонахождение изготовителя"
+    ], key="l8")
+    st.markdown("---")
+    if st.session_state.get("m8") == st.session_state.get("l8"):
+        st.warning("⚠️ Вопрос 11: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
+
+    st.markdown("### Вопрос 12")
+    with st.container():
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        m9 = st.radio("", [
+        "Условия хранения",
+        "Рекомендации и/или ограничения по использованию",
+        "Наличие знака обращения на рынке ЕАЭС (EAC)",
+        "Количество (или объем) пищевой продукции"
+    ], key="m9")
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        l9 = st.radio("", [
+        "Условия хранения",
+        "Рекомендации и/или ограничения по использованию",
+        "Наличие знака обращения на рынке ЕАЭС (EAC)",
+        "Количество (или объем) пищевой продукции"
+    ], key="l9")
+    st.markdown("---")
+    if st.session_state.get("m9") == st.session_state.get("l9"):
+        st.warning("⚠️ Вопрос 12: Нельзя выбирать один и тот же вариант как наиболее и наименее важный.")
+        maxdiff_has_error = True
 
     col1, col2 = st.columns(2)
     with col1:
         st.button("Назад", on_click=go_back)
     with col2:
-        st.button("Далее", on_click=go_next)
+        st.button("Далее", on_click=go_next, disabled=maxdiff_has_error)
 
 # --- Страница 3: Вопросы 13–19 ---
 elif st.session_state.page == 3:
