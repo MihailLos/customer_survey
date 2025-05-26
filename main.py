@@ -315,7 +315,9 @@ elif st.session_state.page == 27:
     st.radio("", ["Да", "Нет"], key="q27", index=None)
 
     if st.button("Отправить анкету", disabled=check_required_question("q27")):
-        answers = {k: v for k, v in st.session_state.items() if not k.startswith("_")}
+        answers = {
+            k: v for k, v in st.session_state.items()
+            if not k.startswith("_") and k not in ["page"]
+        }
         load_data.send_to_airtable(answers)
-        st.success("Спасибо за участие в опросе! Ваши ответы сохранены.")
         st.success("Спасибо за участие в опросе! Ваши ответы сохранены.")
