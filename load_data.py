@@ -25,6 +25,8 @@ def build_answers():
     answers = {}
     for key in RESPONSE_FIELDS:
         val = st.session_state.get(key, "")
+        if isinstance(val, list):
+            val = ", ".join(val)
         answers[key] = val
     answers["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return answers
