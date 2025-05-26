@@ -3,7 +3,7 @@ from datetime import datetime
 import streamlit as st
 
 # --- Параметры доступа к Airtable ---      
-AIRTABLE_TABLE_NAME = 'Results'
+AIRTABLE_TABLE_NAME = st.secrets["AIRTABLE_TABLE_NAME"]
 AIRTABLE_API_KEY = st.secrets["AIRTABLE_API_KEY"]
 AIRTABLE_BASE_ID = st.secrets["AIRTABLE_BASE_ID"]                
 
