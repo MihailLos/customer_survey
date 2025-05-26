@@ -77,6 +77,9 @@ def check_other_required(select_id, text_id):
         return True
     else:
         return False
+    
+def update_q(q: str):
+    st.session_state['answers'][q] = st.session_state[q]
 
 # --- Страница 0: Приветствие ---
 if st.session_state.page == 0:
@@ -89,7 +92,7 @@ if st.session_state.page == 0:
 # --- Страница 1: Вопросы 1–3 ---
 elif st.session_state.page == 1:
     st.markdown("### Вопрос 1. Как часто Вы покупаете пищевую продукцию?")
-    st.radio("", ["Каждый день", "Несколько раз в неделю", "Один раз в неделю", "Реже одного раза в неделю"], key="q1", index=None)
+    st.radio("", ["Каждый день", "Несколько раз в неделю", "Один раз в неделю", "Реже одного раза в неделю"], key="q1", index=None, on_change=update_q("q1"))
     st.button("Далее", on_click=go_next, disabled=check_required_question("q1"))
 
 elif st.session_state.page == 2:
