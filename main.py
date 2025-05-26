@@ -319,5 +319,9 @@ elif st.session_state.page == 27:
             k: v for k, v in st.session_state.items()
             if not k.startswith("_") and k not in ["page"]
         }
+
+        st.write("Ответы, отправляемые в Airtable:")
+        st.json(answers)
+
         load_data.send_to_airtable(answers)
         st.success("Спасибо за участие в опросе! Ваши ответы сохранены.")
