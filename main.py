@@ -315,10 +315,7 @@ elif st.session_state.page == 27:
     st.radio("", ["Да", "Нет"], key="q27", index=None)
 
     if st.button("Отправить анкету", disabled=check_required_question("q27")):
-        answers = {
-            k: v for k, v in st.session_state.items()
-            if not k.startswith("_") and k not in ["page"]
-        }
+        answers = load_data.build_answers()
 
         st.write("Ответы, отправляемые в Airtable:")
         st.json(answers)
