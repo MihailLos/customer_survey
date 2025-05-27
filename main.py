@@ -3,6 +3,7 @@ import streamlit as st
 import base64
 from io import BytesIO
 import load_data
+import survey_question_templates as sqt
 
 st.set_page_config(page_title="Опрос о маркировке пищевой продукции", layout="centered")
 
@@ -86,10 +87,8 @@ if st.session_state.page == 0:
 
 # --- Страница 1: Вопросы 1–3 ---
 elif st.session_state.page == 1:
-    with st.form("f_q1"):
-        st.markdown("### Вопрос 1. Как часто Вы покупаете пищевую продукцию?")
-        st.radio("", ["Каждый день", "Несколько раз в неделю", "Один раз в неделю", "Реже одного раза в неделю"], index=None, key="q1")
-        st.form_submit_button("Далее", on_click=check_required_question)
+    sqt.single_choice_question("f_q1", "q1", "### Вопрос 1. Как часто Вы покупаете пищевую продукцию?", 
+                               ["Каждый день", "Несколько раз в неделю", "Один раз в неделю", "Реже одного раза в неделю"])
 
 elif st.session_state.page == 2:
     with st.form("f_q2"):
@@ -100,8 +99,11 @@ elif st.session_state.page == 2:
                 selected.append(option)
         st.session_state["q2"] = selected
         if "Другое" in selected:
-            st.text_input("Напишите свой вариант:", key="q2_other")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_other_required("q2", "q2_other"))
+            other_text = st.text_input("Напишите свой вариант:")
+        submit = st.form_submit_button("Далее")
+        if submit:
+            if len(selected) == 0 or other_text == None:
+                st.error("Выберите вариант(-ы)")
 
 elif st.session_state.page == 3:
     with st.form("f_q3"):
