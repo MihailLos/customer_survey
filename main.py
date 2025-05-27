@@ -328,7 +328,7 @@ elif st.session_state.page == 26:
         st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q26"))
 
 elif st.session_state.page == 27:
-    with st.form("f_q4"):
+    with st.form("f_q27"):
         st.markdown("### 27. Есть ли у Вас дети до 18 лет?")
         st.radio("", ["Да", "Нет"], index=None, key="q27")
 
