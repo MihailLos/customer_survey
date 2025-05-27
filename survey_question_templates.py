@@ -10,6 +10,8 @@ def single_choice_question(form_key, question_key, question_text, options):
         if not answer:
             st.error("❌ Выберите один вариант ответа.")
             return True
+        else:
+            return False
             
     with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
