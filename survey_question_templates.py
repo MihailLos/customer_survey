@@ -2,7 +2,7 @@ import streamlit as st
 import load_data
 
 def single_choice_question(form_key, question_key, question_text, options):
-    def validate_answer():
+    def validate_answer(answer):
         if not answer:
                 st.error("❌ Выберите один вариант ответа.")
         else:
@@ -12,7 +12,7 @@ def single_choice_question(form_key, question_key, question_text, options):
     with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         answer = st.radio("", options, index=None)
-        st.form_submit_button("Далее", on_click=validate_answer)
+        st.form_submit_button("Далее", on_click=validate_answer(answer))
 
 def single_choice_with_other(form_key, question_key, question_text, options, other_key):
     def validate_answer():
