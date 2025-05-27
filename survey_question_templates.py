@@ -3,7 +3,7 @@ import load_data
 
 def single_choice_question(form_key, question_key, question_text, options):
     with st.form(form_key):
-        st.markdown(f"###{question_text}")
+        st.markdown(f"### {question_text}")
         answer = st.radio("", options, index=None)
         if st.form_submit_button("Далее"):
             if not answer:
@@ -14,7 +14,7 @@ def single_choice_question(form_key, question_key, question_text, options):
 
 def single_choice_with_other(form_key, question_key, question_text, options, other_key):
     with st.form(form_key):
-        st.markdown(f"###{question_text}")
+        st.markdown(f"### {question_text}")
         answer = st.radio("", options + ["Другое"], index=None)
         other_text = ""
         if answer == "Другое":
@@ -31,7 +31,7 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
 
 def multiple_choice_with_other(form_key, question_key, question_text, options, other_key):
     with st.form(form_key):
-        st.markdown(f"###{question_text}")
+        st.markdown(f"### {question_text}")
         selected = []
         for option in options + ["Другое"]:
             if st.checkbox(option, key=f"{question_key}_{option}"):
@@ -51,7 +51,7 @@ def multiple_choice_with_other(form_key, question_key, question_text, options, o
 
 def triple_text_input(form_key, question_key_prefix, question_text, options):
     with st.form(form_key):
-        st.markdown(f"###{question_text}")
+        st.markdown(f"### {question_text}")
         answers = [st.text_input(text) for text in options]
         if st.form_submit_button("Далее"):
             if not all(answers):
