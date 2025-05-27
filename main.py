@@ -87,25 +87,14 @@ if st.session_state.page == 0:
 
 # --- Страница 1: Вопросы 1–3 ---
 elif st.session_state.page == 1:
-    sqt.single_choice_question("f_q1", "q1", "### Вопрос 1. Как часто Вы покупаете пищевую продукцию?", 
+    sqt.single_choice_question("f_q1", "q1", "Вопрос 1. Как часто Вы покупаете пищевую продукцию?", 
                                ["Каждый день", "Несколько раз в неделю", "Один раз в неделю", "Реже одного раза в неделю"])
 
 elif st.session_state.page == 2:
-    with st.form("f_q2"):
-        st.markdown("### Вопрос 2. Где чаще всего Вы приобретаете пищевую продукцию? (возможно указать несколько вариантов ответа)")
-        selected = []
-        for option in ["Супермаркеты", "Магазины 'у дома'", "Ларьки/киоски", "Рынки", "Онлайн-сервисы доставки", "Другое"]:
-            if st.checkbox(option, key=f"q2_{option}"):
-                selected.append(option)
-        st.session_state["q2"] = selected
-        if "Другое" in selected:
-            other_text = st.text_input("Напишите свой вариант:")
-        submit = st.form_submit_button("Далее")
-        if submit:
-            if len(selected) == 0 or other_text == None:
-                st.error("Выберите вариант(-ы)")
+    sqt.multiple_choice_with_other("f_q2", "q2", "Вопрос 2. Где чаще всего Вы приобретаете пищевую продукцию? (возможно указать несколько вариантов ответа)", ["Супермаркеты", "Магазины 'у дома'", "Ларьки/киоски", "Рынки", "Онлайн-сервисы доставки", "Другое"], "q2_other")
 
 elif st.session_state.page == 3:
+    sqt.triple_text_input("f_q3", )
     with st.form("f_q3"):
         st.markdown("### Вопрос 3. Напишите, какие 3 элемента маркировки, по Вашему мнению, должны быть выделены наиболее заметно на упаковке любой пищевой продукции?")
         e1 = st.text_input("Элемент 1:", key="q3_1")
@@ -115,229 +104,97 @@ elif st.session_state.page == 3:
 
 # MaxDiff пример — Вопрос 4
 elif st.session_state.page == 4:
-    with st.form("f_q4"):
-        st.markdown("### Вопрос 4. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Рекомендации и/или ограничения по использованию (в том числе по приготовлению)", 
-                    "Количество (или объем) пищевой продукции", "Условия хранения", "Дата изготовления"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m1")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l1")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m1", "l1"))
+    sqt.maxdiff_question("f_q4", 1, "Вопрос 4. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Рекомендации и/или ограничения по использованию (в том числе по приготовлению)", 
+                    "Количество (или объем) пищевой продукции", "Условия хранения", "Дата изготовления"])
 
 elif st.session_state.page == 5:
-    with st.form("f_q5"):
-        st.markdown("### Вопрос 5. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Состав", "Срок годности", "Пищевая ценность (содержание или отсутствие определённых веществ)", 
-                    "Наличие единого знака обращения продукции на рынке Евразийского экономического союза (EAC)"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m2")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l2")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m2", "l2"))
+    sqt.maxdiff_question("f_q5", 2, "Вопрос 5. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Состав", "Срок годности", "Пищевая ценность (содержание или отсутствие определённых веществ)", 
+                    "Наличие единого знака обращения продукции на рынке Евразийского экономического союза (EAC)"])
 
 elif st.session_state.page == 6:
-    with st.form("f_q6"):
-        st.markdown("### Вопрос 6. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Наличие единого знака обращения продукции на рынке Евразийского экономического союза (EAC)", "Состав", 
+    sqt.maxdiff_question("f_q6", 3, "Вопрос 6. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Наличие единого знака обращения продукции на рынке Евразийского экономического союза (EAC)", "Состав", 
                     "Наименование и местонахождение изготовителя", 
-                    "Рекомендации и/или ограничения по использованию (в том числе по приготовлению)"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m3")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l3")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m3", "l3"))
+                    "Рекомендации и/или ограничения по использованию (в том числе по приготовлению)"])
 
 elif st.session_state.page == 7:
-    with st.form("f_q7"):
-        st.markdown("### Вопрос 7. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Наименование и местонахождение изготовителя", "Условия хранения", "Срок годности", 
-                    "Пищевая ценность (содержание или отсутствие определённых веществ)"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m4")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l4")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m4", "l4"))
+    sqt.maxdiff_question("f_q7", 4, "Вопрос 7. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Наименование и местонахождение изготовителя", "Условия хранения", "Срок годности", 
+                    "Пищевая ценность (содержание или отсутствие определённых веществ)"])
 
 elif st.session_state.page == 8:
-    with st.form("f_q8"):
-        st.markdown("### Вопрос 8. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Дата изготовления", 
+    sqt.maxdiff_question("f_q8", 5, "Вопрос 8. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Дата изготовления", 
                     "Наличие единого знака обращения продукции на рынке Евразийского экономического союза (EAC)", 
-                    "Состав", "Условия хранения"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m5")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l5")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m5", "l5"))
+                    "Состав", "Условия хранения"])
 
 elif st.session_state.page == 9:
-    with st.form("f_q9"):
-        st.markdown("### Вопрос 9. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Пищевая ценность (содержание или отсутствие определённых веществ)", "Дата изготовления", 
-                    "Рекомендации и/или ограничения по использованию (в том числе по приготовлению)", "Срок годности"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m6")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l6")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m6", "l6"))
+    sqt.maxdiff_question("f_q9", 6, "Вопрос 9. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Пищевая ценность (содержание или отсутствие определённых веществ)", "Дата изготовления", 
+                    "Рекомендации и/или ограничения по использованию (в том числе по приготовлению)", "Срок годности"])
 
 elif st.session_state.page == 10:
-    with st.form("f_q10"):
-        st.markdown("### Вопрос 10. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Срок годности", "Наименование и местонахождение изготовителя", "Количество (или объем) пищевой продукции", 
-                    "Состав"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m7")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l7")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m7", "l7"))
+    sqt.maxdiff_question("f_q10", 7, "Вопрос 10. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Срок годности", "Наименование и местонахождение изготовителя", "Количество (или объем) пищевой продукции", 
+                    "Состав"])
 
 elif st.session_state.page == 11:
-    with st.form("f_q11"):
-        st.markdown("### Вопрос 11. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Количество (или объем) пищевой продукции", 
+    sqt.maxdiff_question("f_q11", 8, "Вопрос 11. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Количество (или объем) пищевой продукции", 
                     "Пищевая ценность (содержание или отсутствие определённых пищевых веществ)", 
-                    "Дата изготовления", "Наименование и местонахождение изготовителя"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m8")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l8")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m8", "l8"))
+                    "Дата изготовления", "Наименование и местонахождение изготовителя"])
 
 elif st.session_state.page == 12:
-    with st.form("f_q12"):
-        st.markdown("### Вопрос 12. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?")
-        with st.container():
-            options = ["Условия хранения", "Рекомендации и/или ограничения по использованию (в том числе по приготовлению)", 
+    sqt.maxdiff_question("f_q12", 9, "Вопрос 12. При выборе продукции, какая информация на маркировке наиболее важна и наименее важна для Вас?", ["Условия хранения", "Рекомендации и/или ограничения по использованию (в том числе по приготовлению)", 
                     "Наличие единого знака обращения продукции на рынке Евразийского экономического союза (EAC)", 
-                    "Количество (или объем) пищевой продукции"]
-            st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="m9")
-            st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-            st.radio("", options, index=None, key="l9")
-            st.form_submit_button("Далее", on_click=go_next, disabled=check_maxdiff_question("m9", "l9"))
+                    "Количество (или объем) пищевой продукции"])
 
 # --- Страница 3: Вопросы 13–19 ---
 elif st.session_state.page == 13:
-    with st.form("f_q13"):
-        st.markdown("### Вопрос 13. Насколько Вы осведомлены о содержании нутриентов (белков, жиров, углеводов, витаминов и др.) в продукции, которую покупаете?")
-        st.radio("", ["Хорошо ориентируюсь", "Частично понимаю", "Знаю общие принципы", "Не обращаю внимания"], index=None, key="q13")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q13"))
+    sqt.single_choice_question("f_q13", "q13", "Вопрос 13. Насколько Вы осведомлены о содержании нутриентов (белков, жиров, углеводов, витаминов и др.) в продукции, которую покупаете?", ["Хорошо ориентируюсь", "Частично понимаю", "Знаю общие принципы", "Не обращаю внимания"])
 
 elif st.session_state.page == 14:
-    with st.form("f_q14"):
-        st.markdown("### Вопрос 14. Насколько для Вас важна информация о пользе продукции для здоровья (например, содержание соли, сахара, холестерина)?")
-        st.radio("", ["Очень важно", "Скорее важно", "Не имеет значения"], index=None, key="q14")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q14"))
+    sqt.single_choice_question("f_q14", "q14", "Вопрос 14. Насколько для Вас важна информация о пользе продукции для здоровья (например, содержание соли, сахара, холестерина)?", ["Очень важно", "Скорее важно", "Не имеет значения"])
 
 elif st.session_state.page == 15:
-    with st.form("f_q15"):
-        st.markdown("### Вопрос 15. Часто ли Вы сталкиваетесь с трудностями при покупке продукции (например, мелкий шрифт на упаковке)?")
-        st.radio("", ["Да, регулярно", "Иногда", "Нет"], index=None, key="q15")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q15"))
+    sqt.single_choice_question("f_q15", "q15", "Вопрос 15. Часто ли Вы сталкиваетесь с трудностями при покупке продукции (например, мелкий шрифт на упаковке)?", ["Да, регулярно", "Иногда", "Нет"])
 
 elif st.session_state.page == 16:
-    with st.form("f_q16"):
-        st.markdown("### Вопрос 16. Обращаете ли Вы внимание на наличие специализированной пищевой продукции (например, с пониженным содержанием сахара, безглютеновых, гипоаллергенных и др.)?")
-        st.radio("", ["Да, это важно", "Иногда обращаю внимание", "Нет, не обращаю внимание"], index=None, key="q16")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q16"))
+    sqt.single_choice_question("f_q16", "q16", "Вопрос 16. Обращаете ли Вы внимание на наличие специализированной пищевой продукции (например, с пониженным содержанием сахара, безглютеновых, гипоаллергенных и др.)?", ["Да, это важно", "Иногда обращаю внимание", "Нет, не обращаю внимание"])
 
 elif st.session_state.page == 17:
-    with st.form("f_q17"):
-        st.markdown("### Вопрос 17. Какой информацией Вы хотели бы пользоваться при выборе продукции? (можно выбрать несколько вариантов)")
-        selected = []
-        for option in ["Рейтинги качества", "Сравнение цен в разных магазинах", "Подробный анализ состава", 
-                    "Отзывы других покупателей", "Рекомендации по здоровому питанию", "Другое"]:
-            if st.checkbox(option, key=f"q17_{option}"):
-                selected.append(option)
-        st.session_state["q17"] = selected
-        if "Другое" in selected:
-            st.text_input("Напишите свой вариант:", key="q17_other")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_other_required("q17", "q17_other"))
+    sqt.multiple_choice_with_other("f_q17", "q17", "Вопрос 17. Какой информацией Вы хотели бы пользоваться при выборе продукции? (можно выбрать несколько вариантов)", ["Рейтинги качества", "Сравнение цен в разных магазинах", "Подробный анализ состава", 
+                    "Отзывы других покупателей", "Рекомендации по здоровому питанию", "Другое"], "q17_other")
 
 elif st.session_state.page == 18:
-    with st.form("f_q18"):
-        st.markdown("### Вопрос 18. Читаете ли Вы информацию на упаковке перед покупкой?")
-        st.radio("", ["Да, всегда внимательно изучаю", "Смотрю, но не углубляюсь", 
-                "Читаю только при выборе новой продукции", "Нет, не обращаю внимания"], index=None, key="q18")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q18"))
+    sqt.single_choice_question("f_q18", "q18", "Вопрос 18. Читаете ли Вы информацию на упаковке перед покупкой?", ["Да, всегда внимательно изучаю", "Смотрю, но не углубляюсь", 
+                "Читаю только при выборе новой продукции", "Нет, не обращаю внимания"])
 
 elif st.session_state.page == 19:
-    with st.form("f_q19"):
-        st.markdown("### Вопрос 19. Хотели бы вы пользоваться цифровой системой, которая помогает выбирать пищевую продукцию на основе ваших предпочтений?")
-        st.radio("", ["Да", "Нет", "Затрудняюсь ответить"], index=None, key="q19")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q19"))
+    sqt.single_choice_question("f_q19", "q19", "Вопрос 19. Хотели бы вы пользоваться цифровой системой, которая помогает выбирать пищевую продукцию на основе ваших предпочтений?", ["Да", "Нет", "Затрудняюсь ответить"])
 
 # --- Страница 4: Социально-демографический блок (20–27) ---
 elif st.session_state.page == 20:
-    with st.form("f_q20"):
-        st.markdown("### Вопрос 20. Ваш пол")
-        st.radio("", ["Мужской", "Женский"], index=None, key="q20")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q20"))
+    sqt.single_choice_question("f_q20", "q20", "Вопрос 20. Ваш пол", ["Мужской", "Женский"])
 
 elif st.session_state.page == 21:
-    with st.form("f_q21"):
-        st.markdown("### Вопрос 21. Ваша возрастная категория")
-        st.radio("", ["18–29 лет", "30–39 лет", "40–49 лет", "50–59 лет", "60 лет и выше"], index=None, key="q21")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q21"))
+    sqt.single_choice_question("f_q21", "q21", "Вопрос 21. Ваша возрастная категория", ["18–29 лет", "30–39 лет", "40–49 лет", "50–59 лет", "60 лет и выше"])
 
 elif st.session_state.page == 22:
-    with st.form("f_q22"):
-        st.markdown("### Вопрос 22. Ваше образование (на текущий момент)")
-        selected = st.radio("", ["Школа", "Неоконченное среднее специальное", "Колледж / техникум", "Неоконченное высшее",
-                "Бакалавриат / специалитет", "Магистратура / аспирантура", "Другое"], key="q22", index=None)
-        if selected == "Другое":
-            st.text_input("Уточните ваше образование:", key="q22_other")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_other_required("q22", "q22_other"))
+    sqt.single_choice_with_other("f_q22", "q22", "Вопрос 22. Ваше образование (на текущий момент)", ["Школа", "Неоконченное среднее специальное", "Колледж / техникум", "Неоконченное высшее",
+                "Бакалавриат / специалитет", "Магистратура / аспирантура", "Другое"], "q22_other")
 
 elif st.session_state.page == 23:
-    with st.form("f_q23"):
-        st.markdown("### Вопрос 23. Ваш род занятий")
-        selected = st.radio("", ["Учащийся / студент", "Работающий (наёмный)", "Работающий (Самозанятый / предприниматель)",
-                "Пенсионер", "Безработный", "Другое"], index=None, key="q23")
-        if selected == "Другое":
-            text = st.text_input("Уточните ваш род занятий:", key="q23_other")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_other_required("q23", "q23_other"))
+    sqt.single_choice_with_other("f_q23", "q23", "Вопрос 23. Ваш род занятий", ["Учащийся / студент", "Работающий (наёмный)", "Работающий (Самозанятый / предприниматель)",
+                "Пенсионер", "Безработный", "Другое"], "q23_other")
 
 elif st.session_state.page == 24:
-    with st.form("f_q24"):
-        st.markdown("### Вопрос 24. Ваше семейное положение")
-        st.radio("", ["Состою в браке", "Не состою в браке"], index=None, key="q24")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q24"))
+    sqt.single_choice_question("f_q24", "q24", "Вопрос 24. Ваше семейное положение", ["Состою в браке", "Не состою в браке"])
 
 elif st.session_state.page == 25:
-    with st.form("f_q25"):
-        st.markdown("### Вопрос 25. Сколько человек проживает с Вами?")
-        st.radio("", ["Живу один", "1 человек", "2 человека", "3 человека", "4 человека", "5 и более"], index=None, key="q25")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q25"))
+    sqt.single_choice_question("f_q25", "q25", "Вопрос 25. Сколько человек проживает с Вами?", ["Живу один", "1 человек", "2 человека", "3 человека", "4 человека", "5 и более"])
 
 elif st.session_state.page == 26:
-    with st.form("f_q26"):
-        st.markdown("### 26. Насколько комфортно Вам покрывать расходы на питание?")
-        st.radio("", ["Очень комфортно (не экономлю)", "Достаточно комфортно (иногда ищу скидки)", 
+    sqt.single_choice_question("f_q26", "q26", "Вопрос 26. Насколько комфортно Вам покрывать расходы на питание?", ["Очень комфортно (не экономлю)", "Достаточно комфортно (иногда ищу скидки)", 
                     "Затруднительно (часто выбираю бюджетные варианты)", 
-                    "Очень сложно (вынужден(-а) сильно экономить на пищевой продукции)"], index=None, key="q26")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q26"))
+                    "Очень сложно (вынужден(-а) сильно экономить на пищевой продукции)"])
 
 elif st.session_state.page == 27:
-    with st.form("f_q27"):
-        st.markdown("### 27. Есть ли у Вас дети до 18 лет?")
-        st.radio("", ["Да", "Нет"], index=None, key="q27")
+    sqt.single_choice_question("f_q27", "q27", "Вопрос 27. Есть ли у Вас дети до 18 лет?", ["Да", "Нет"])
 
-        if st.form_submit_button("Отправить анкету", disabled=check_required_question("q27")):
-            answers = load_data.build_answers()
-
-            st.write("Ответы, отправляемые в Airtable:")
-            st.json(answers)
-
-            load_data.send_to_airtable(answers)
-            st.success("Спасибо за участие в опросе! Ваши ответы сохранены.")
+elif st.session_state.page == 28:
+    sqt.final_submit_screen("f_q28")

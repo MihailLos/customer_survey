@@ -1,8 +1,10 @@
 import streamlit as st
+import load_data
 
 def single_choice_question(form_key, question_key, question_text, options):
     with st.form(form_key):
-        answer = st.radio(f"### {question_text}", options, index=None)
+        st.markdown(f"###{question_text}")
+        answer = st.radio("", options, index=None)
         if st.form_submit_button("Далее"):
             if not answer:
                 st.error("❌ Выберите один вариант ответа.")
@@ -12,7 +14,8 @@ def single_choice_question(form_key, question_key, question_text, options):
 
 def single_choice_with_other(form_key, question_key, question_text, options, other_key):
     with st.form(form_key):
-        answer = st.radio(f"### {question_text}", options + ["Другое"], index=None)
+        st.markdown(f"###{question_text}")
+        answer = st.radio("", options + ["Другое"], index=None)
         other_text = ""
         if answer == "Другое":
             other_text = st.text_input("Уточните:")
@@ -28,6 +31,7 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
 
 def multiple_choice_with_other(form_key, question_key, question_text, options, other_key):
     with st.form(form_key):
+        st.markdown(f"###{question_text}")
         selected = []
         for option in options + ["Другое"]:
             if st.checkbox(option, key=f"{question_key}_{option}"):
@@ -45,9 +49,10 @@ def multiple_choice_with_other(form_key, question_key, question_text, options, o
                 st.session_state[other_key] = other_text
                 st.session_state.page += 1
 
-def triple_text_input(form_key, question_key_prefix, question_texts):
+def triple_text_input(form_key, question_key_prefix, question_text, options):
     with st.form(form_key):
-        answers = [st.text_input(text) for text in question_texts]
+        st.markdown(f"###{question_text}")
+        answers = [st.text_input(text) for text in options]
         if st.form_submit_button("Далее"):
             if not all(answers):
                 st.error("❌ Заполните все поля.")
@@ -74,3 +79,15 @@ def maxdiff_question(form_key, question_index, question_text, options):
                 st.session_state[f"m{question_index}"] = most
                 st.session_state[f"l{question_index}"] = least
                 st.session_state.page += 1
+
+def final_submit_screen(form_key="form_submit"):
+    with st.form(form_key):
+        st.markdown("### Спасибо за участие в опросе!")
+        st.markdown("Пожалуйста, нажмите кнопку ниже, чтобы отправить свои ответы.")
+        submitted = st.form_submit_button("Отправить анкету")
+        if submitted:
+            answers = load_data.build_answers()
+            st.write("Ответы, отправляемые в Airtable:")
+            st.json(answers)
+            load_data.send_to_airtable(answers)
+            st.success("✅ Ваши ответы успешно отправлены. Спасибо за участие!")
