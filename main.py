@@ -29,7 +29,7 @@ st.markdown(
 if "page" not in st.session_state:
     st.session_state.page = 0
 
-TOTAL_PAGES = 28
+TOTAL_PAGES = 29
 current_page = st.session_state.page
 progress = int((current_page / (TOTAL_PAGES - 1)) * 100)
 
