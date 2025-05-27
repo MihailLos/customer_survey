@@ -77,9 +77,6 @@ def check_other_required(select_id, text_id):
         return True
     else:
         return False
-    
-def update_q(q: str):
-    st.session_state['answers'][q] = st.session_state[q]
 
 # --- Страница 0: Приветствие ---
 if st.session_state.page == 0:
@@ -318,8 +315,6 @@ elif st.session_state.page == 27:
     st.radio("", ["Да", "Нет"], key="q27", index=None)
 
     if st.button("Отправить анкету", disabled=check_required_question("q27")):
-        for i in range(1, 28):
-            update_q(f"q{i}")
         answers = load_data.build_answers()
 
         st.write("Ответы, отправляемые в Airtable:")
