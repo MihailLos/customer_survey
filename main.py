@@ -92,7 +92,6 @@ elif st.session_state.page == 1:
     selected = st.radio("", ["Каждый день", "Несколько раз в неделю", "Один раз в неделю", "Реже одного раза в неделю"], key="q1", index=None)
     if st.button("Далее", disabled=check_required_question("q1")):
         go_next()
-        st.session_state["q1"] = selected
 
 elif st.session_state.page == 2:
     st.markdown("### Вопрос 2. Где чаще всего Вы приобретаете пищевую продукцию? (возможно указать несколько вариантов ответа)")
