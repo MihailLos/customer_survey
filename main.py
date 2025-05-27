@@ -40,12 +40,11 @@ def go_next():
     st.session_state.page += 1
 
 # Проверка обязательного выбора radio
-def check_required_question(id):
-    if st.session_state.get(id) is None:
+def check_required_question(selected):
+    if selected is None:
         st.error("❌ Выберите один вариант ответа для продолжения опроса.")
-        return True
     else:
-        return False
+        go_next()
 
 # Проверка для MaxDiff: нельзя одинаковые варианты
 def check_maxdiff_question(id1, id2):
@@ -90,7 +89,7 @@ elif st.session_state.page == 1:
     with st.form("f_q1"):
         st.markdown("### Вопрос 1. Как часто Вы покупаете пищевую продукцию?")
         st.radio("", ["Каждый день", "Несколько раз в неделю", "Один раз в неделю", "Реже одного раза в неделю"], index=None, key="q1")
-        st.form_submit_button("Далее", on_click=go_next, disabled=check_required_question("q1"))
+        st.form_submit_button("Далее", on_click=check_required_question)
 
 elif st.session_state.page == 2:
     with st.form("f_q2"):
