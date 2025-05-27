@@ -2,21 +2,25 @@ import streamlit as st
 import load_data
 
 def single_choice_question(form_key, question_key, question_text, options):
-    def onclick():
-        st.session_state[question_key] = answer
-        st.session_state.page += 1
+    answer_key = f"{form_key}_answer"
 
-    def validate_answer():
+    def onclick():
+        answer = st.session_state.get(answer_key)
         if not answer:
-            st.error("❌ Выберите один вариант ответа.")
-            return True
+            st.session_state["form_error"] = "❌ Выберите один вариант ответа."
         else:
-            return False
-            
-    with st.form(form_key, enter_to_submit=True):
+            st.session_state[question_key] = answer
+            st.session_state["form_error"] = ""
+            st.session_state.page += 1
+
+    with st.form(form_key):
         st.markdown(f"### {question_text}")
-        answer = st.radio("", options, index=None)
-        st.form_submit_button("Далее", on_click=onclick, disabled=validate_answer)
+        st.radio("", options, index=None, key=answer_key)
+        st.form_submit_button("Далее", on_click=onclick)
+
+    # Отображаем ошибку после формы
+    if st.session_state.get("form_error"):
+        st.error(st.session_state["form_error"])
 
 def single_choice_with_other(form_key, question_key, question_text, options, other_key):
     def validate_answer():
