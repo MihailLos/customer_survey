@@ -5,10 +5,11 @@ def single_choice_question(form_key, question_key, question_text, options):
     def onclick():
         st.session_state[question_key] = answer
         st.session_state.page += 1
-    def validate_answer(answer):
+
+    def validate_answer():
         if not answer:
-                st.error("❌ Выберите один вариант ответа.")
-                return True
+            st.error("❌ Выберите один вариант ответа.")
+            return True
             
     with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
