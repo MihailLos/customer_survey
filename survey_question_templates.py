@@ -2,7 +2,7 @@ import streamlit as st
 import load_data
 
 def single_choice_question(form_key, question_key, question_text, options):
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         answer = st.radio("", options, index=None)
         if st.form_submit_button("Далее"):
@@ -10,10 +10,13 @@ def single_choice_question(form_key, question_key, question_text, options):
                 st.error("❌ Выберите один вариант ответа.")
             else:
                 st.session_state[question_key] = answer
-                st.session_state.page += 1
+                st.session_state[f"{form_key}_submitted"] = True
+        if st.session_state[f"{form_key}_submitted"]:
+            st.session_state[f"{form_key}_submitted"] = False
+            st.session_state.page += 1
 
 def single_choice_with_other(form_key, question_key, question_text, options, other_key):
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         answer = st.radio("", options + ["Другое"], index=None)
         other_text = ""
@@ -27,10 +30,13 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
             else:
                 st.session_state[question_key] = answer
                 st.session_state[other_key] = other_text
-                st.session_state.page += 1
+                st.session_state[f"{form_key}_submitted"] = True
+        if st.session_state[f"{form_key}_submitted"]:
+            st.session_state[f"{form_key}_submitted"] = False
+            st.session_state.page += 1
 
 def multiple_choice_with_other(form_key, question_key, question_text, options, other_key):
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         selected = []
         for option in options + ["Другое"]:
@@ -47,10 +53,13 @@ def multiple_choice_with_other(form_key, question_key, question_text, options, o
             else:
                 st.session_state[question_key] = selected
                 st.session_state[other_key] = other_text
-                st.session_state.page += 1
+                st.session_state[f"{form_key}_submitted"] = True
+        if st.session_state[f"{form_key}_submitted"]:
+            st.session_state[f"{form_key}_submitted"] = False
+            st.session_state.page += 1
 
 def triple_text_input(form_key, question_key_prefix, question_text, options):
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         answers = [st.text_input(text) for text in options]
         if st.form_submit_button("Далее"):
@@ -59,12 +68,13 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
             else:
                 for i, ans in enumerate(answers, start=1):
                     st.session_state[f"{question_key_prefix}_{i}"] = ans
-                st.session_state.page += 1
-
-import streamlit as st
+                st.session_state[f"{form_key}_submitted"] = True
+        if st.session_state[f"{form_key}_submitted"]:
+            st.session_state[f"{form_key}_submitted"] = False
+            st.session_state.page += 1
 
 def maxdiff_question(form_key, question_index, question_text, options):
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
         most = st.radio("", options, index=None, key=f"max_{question_index}")
@@ -78,10 +88,13 @@ def maxdiff_question(form_key, question_index, question_text, options):
             else:
                 st.session_state[f"m{question_index}"] = most
                 st.session_state[f"l{question_index}"] = least
-                st.session_state.page += 1
+                st.session_state[f"{form_key}_submitted"] = True
+        if st.session_state[f"{form_key}_submitted"]:
+            st.session_state[f"{form_key}_submitted"] = False
+            st.session_state.page += 1
 
 def final_submit_screen(form_key="form_submit"):
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown("### Спасибо за участие в опросе!")
         st.markdown("Пожалуйста, нажмите кнопку ниже, чтобы отправить свои ответы.")
         submitted = st.form_submit_button("Отправить анкету")
