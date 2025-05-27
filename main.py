@@ -95,12 +95,6 @@ elif st.session_state.page == 2:
 
 elif st.session_state.page == 3:
     sqt.triple_text_input("f_q3", "q3", "Вопрос 3. Напишите, какие 3 элемента маркировки, по Вашему мнению, должны быть выделены наиболее заметно на упаковке любой пищевой продукции?", ["Элемент 1:", "Элемент 2:", "Элемент 3:"])
-    with st.form("f_q3"):
-        st.markdown("### Вопрос 3. Напишите, какие 3 элемента маркировки, по Вашему мнению, должны быть выделены наиболее заметно на упаковке любой пищевой продукции?")
-        e1 = st.text_input("Элемент 1:", key="q3_1")
-        e2 = st.text_input("Элемент 2:", key="q3_2")
-        e3 = st.text_input("Элемент 3:", key="q3_3")
-        st.form_submit_button("Далее", on_click=go_next, disabled=not all([e1, e2, e3]))
 
 # MaxDiff пример — Вопрос 4
 elif st.session_state.page == 4:
