@@ -11,7 +11,7 @@ def single_choice_question(form_key, question_key, question_text, options):
             else:
                 st.session_state[question_key] = answer
                 st.session_state[f"{form_key}_submitted"] = True
-        if st.session_state[f"{form_key}_submitted"]:
+        if st.session_state.get(f"{form_key}_submitted", False):
             st.session_state[f"{form_key}_submitted"] = False
             st.session_state.page += 1
 
@@ -31,7 +31,7 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
                 st.session_state[question_key] = answer
                 st.session_state[other_key] = other_text
                 st.session_state[f"{form_key}_submitted"] = True
-        if st.session_state[f"{form_key}_submitted"]:
+        if st.session_state.get(f"{form_key}_submitted", False):
             st.session_state[f"{form_key}_submitted"] = False
             st.session_state.page += 1
 
@@ -54,7 +54,7 @@ def multiple_choice_with_other(form_key, question_key, question_text, options, o
                 st.session_state[question_key] = selected
                 st.session_state[other_key] = other_text
                 st.session_state[f"{form_key}_submitted"] = True
-        if st.session_state[f"{form_key}_submitted"]:
+        if st.session_state.get(f"{form_key}_submitted", False):
             st.session_state[f"{form_key}_submitted"] = False
             st.session_state.page += 1
 
@@ -69,7 +69,7 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
                 for i, ans in enumerate(answers, start=1):
                     st.session_state[f"{question_key_prefix}_{i}"] = ans
                 st.session_state[f"{form_key}_submitted"] = True
-        if st.session_state[f"{form_key}_submitted"]:
+        if st.session_state.get(f"{form_key}_submitted", False):
             st.session_state[f"{form_key}_submitted"] = False
             st.session_state.page += 1
 
@@ -89,7 +89,7 @@ def maxdiff_question(form_key, question_index, question_text, options):
                 st.session_state[f"m{question_index}"] = most
                 st.session_state[f"l{question_index}"] = least
                 st.session_state[f"{form_key}_submitted"] = True
-        if st.session_state[f"{form_key}_submitted"]:
+        if st.session_state.get(f"{form_key}_submitted", False):
             st.session_state[f"{form_key}_submitted"] = False
             st.session_state.page += 1
 
