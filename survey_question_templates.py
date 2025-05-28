@@ -102,7 +102,7 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
         st.error(st.session_state["form_error"])
 
 
-def maxdiff_question(form_key, question_index, question_text, options):
+def maxdiff_question_visual(form_key, question_index, question_text, options):
     most_key = f"m{question_index}"
     least_key = f"l{question_index}"
 
@@ -119,39 +119,21 @@ def maxdiff_question(form_key, question_index, question_text, options):
 
     with st.form(form_key):
         st.markdown(f"### {question_text}")
-        st.markdown(
-            """
-            <style>
-            .maxdiff-table td {
-                padding: 6px 12px;
-                text-align: center;
-                vertical-align: middle;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown("Выберите наиболее и наименее важную информацию:")
+        
+        table_html = "<table style='width:100%; text-align:center;'>"
+        table_html += "<tr><th>Вариант</th></tr>"
+        for opt in options:
+            table_html += f"<tr><td>{opt}</td></tr>"
+        table_html += "</table>"
 
-        # Заголовки
-        col1, col2, col3 = st.columns([1, 4, 1])
-        with col1:
-            st.markdown("**Наиболее важный**")
-        with col2:
-            st.markdown(" ")
-        with col3:
-            st.markdown("**Наименее важный**")
+        st.markdown(table_html, unsafe_allow_html=True)
 
-        # Отображение строк с вариантами
-        for i, opt in enumerate(options):
-            col1, col2, col3 = st.columns([1, 4, 1])
-            with col1:
-                if st.radio("", [" "], key=f"{form_key}_most_{i}", index=None) == " ":
-                    st.session_state[most_key] = opt
-            with col2:
-                st.markdown(f"<div style='text-align:center;'>{opt}</div>", unsafe_allow_html=True)
-            with col3:
-                if st.radio("", [" "], key=f"{form_key}_least_{i}", index=None) == " ":
-                    st.session_state[least_key] = opt
+        st.markdown("**Наиболее важная информация:**")
+        st.radio("", options, key=most_key, index=None)
+
+        st.markdown("**Наименее важная информация:**")
+        st.radio("", options, key=least_key, index=None)
 
         st.form_submit_button("Далее", on_click=validate_answer)
 
