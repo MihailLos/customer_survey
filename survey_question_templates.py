@@ -13,7 +13,7 @@ def single_choice_question(form_key, question_key, question_text, options):
             st.session_state["form_error"] = ""
             st.session_state.page += 1
 
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         st.radio("", options, index=None, key=answer_key)
         st.form_submit_button("Далее", on_click=onclick)
@@ -39,7 +39,7 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
             st.session_state["form_error"] = ""
             st.session_state.page += 1
 
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         st.radio("", options + ["Другое"], index=None, key=answer_key)
         if st.session_state.get(answer_key) == "Другое":
@@ -67,7 +67,7 @@ def multiple_choice_with_other(form_key, question_key, question_text, options, o
             st.session_state["form_error"] = ""
             st.session_state.page += 1
 
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         for option in options + ["Другое"]:
             st.checkbox(option, key=f"{form_key}_{question_key}_{option}")
@@ -92,7 +92,7 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
             st.session_state["form_error"] = ""
             st.session_state.page += 1
 
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         for i, text in enumerate(options, start=1):
             st.text_input(text, key=input_keys[i - 1])
@@ -119,7 +119,7 @@ def maxdiff_question(form_key, question_index, question_text, options):
             st.session_state["form_error"] = ""
             st.session_state.page += 1
 
-    with st.form(form_key):
+    with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
         st.radio("", options, index=None, key=most_key)
