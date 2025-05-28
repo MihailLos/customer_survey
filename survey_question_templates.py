@@ -145,12 +145,12 @@ def maxdiff_question(form_key, question_index, question_text, options):
         for i, opt in enumerate(options):
             col1, col2, col3 = st.columns([1, 4, 1])
             with col1:
-                if st.radio("", [" "], key=f"{form_key}_most_{i}") == " ":
+                if st.radio("", [" "], key=f"{form_key}_most_{i}", index=None) == " ":
                     st.session_state[most_key] = opt
             with col2:
                 st.markdown(f"<div style='text-align:center;'>{opt}</div>", unsafe_allow_html=True)
             with col3:
-                if st.radio("", [" "], key=f"{form_key}_least_{i}") == " ":
+                if st.radio("", [" "], key=f"{form_key}_least_{i}", index=None) == " ":
                     st.session_state[least_key] = opt
 
         st.form_submit_button("Далее", on_click=validate_answer)
