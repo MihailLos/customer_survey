@@ -102,7 +102,7 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
         st.error(st.session_state["form_error"])
 
 
-def maxdiff_question_visual(form_key, question_index, question_text, options):
+def maxdiff_question(form_key, question_index, question_text, options):
     most_key = f"m{question_index}"
     least_key = f"l{question_index}"
 
