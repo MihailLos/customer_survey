@@ -29,12 +29,14 @@ st.markdown(
 if "page" not in st.session_state:
     st.session_state.page = 0
 
-TOTAL_PAGES = 29
-current_page = 1
-progress = int((current_page / (TOTAL_PAGES - 1)) * 100)
+TOTAL_PAGES = 28
 
-st.progress(progress)
-st.markdown(f"**Прогресс прохождения опроса: {progress}%**")
+# Показываем прогресс-бар только на вопросах
+if 1 <= st.session_state.page <= TOTAL_PAGES - 1:
+    current_page = st.session_state.page
+    progress = int((current_page / (TOTAL_PAGES - 1)) * 100)
+    st.progress(progress)
+    st.markdown(f"**Прогресс прохождения опроса: {progress}%**")
 
 # Навигация
 def go_next():
