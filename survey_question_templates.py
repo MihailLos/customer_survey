@@ -103,8 +103,8 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
 
 
 def maxdiff_question(form_key, question_index, question_text, options):
-    most_key = f"m{question_index}"
-    least_key = f"l{question_index}"
+    most_key = f"{form_key}_most"
+    least_key = f"{form_key}_least"
 
     def validate_answer():
         most = st.session_state.get(most_key)
@@ -114,27 +114,17 @@ def maxdiff_question(form_key, question_index, question_text, options):
         elif most == least:
             st.session_state["form_error"] = "❌ Нельзя выбирать один и тот же вариант как наиболее и наименее важный."
         else:
+            st.session_state[f"m{question_index}"] = most
+            st.session_state[f"l{question_index}"] = least
             st.session_state["form_error"] = ""
             st.session_state.page += 1
 
     with st.form(form_key):
         st.markdown(f"### {question_text}")
-        st.markdown("Выберите наиболее и наименее важную информацию:")
-        
-        table_html = "<table style='width:100%; text-align:center;'>"
-        table_html += "<tr><th>Вариант</th></tr>"
-        for opt in options:
-            table_html += f"<tr><td>{opt}</td></tr>"
-        table_html += "</table>"
-
-        st.markdown(table_html, unsafe_allow_html=True)
-
-        st.markdown("**Наиболее важная информация:**")
-        st.radio("", options, key=most_key, index=None)
-
-        st.markdown("**Наименее важная информация:**")
-        st.radio("", options, key=least_key, index=None)
-
+        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        st.radio("", options, index=None, key=most_key)
+        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        st.radio("", options, index=None, key=least_key)
         st.form_submit_button("Далее", on_click=validate_answer)
 
     if st.session_state.get("form_error"):
