@@ -131,13 +131,16 @@ def maxdiff_question(form_key, question_index, question_text, options):
         st.error(st.session_state["form_error"])
 
 def final_submit_screen(form_key="form_submit"):
+    if st.session_state.get("form_submitted"):
+        st.markdown("### ✅ Ваши ответы успешно отправлены. Спасибо за участие!")
+        return
+
     with st.form(form_key, enter_to_submit=True):
         st.markdown("### Спасибо за участие в опросе!")
         st.markdown("Пожалуйста, нажмите кнопку ниже, чтобы отправить свои ответы.")
         submitted = st.form_submit_button("Отправить анкету")
         if submitted:
             answers = load_data.build_answers()
-            st.write("Ответы, отправляемые в Airtable:")
-            st.json(answers)
             load_data.send_to_airtable(answers)
-            st.success("✅ Ваши ответы успешно отправлены. Спасибо за участие!")
+            st.session_state["form_submitted"] = True
+            st.experimental_rerun()
