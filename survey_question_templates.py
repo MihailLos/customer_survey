@@ -143,4 +143,4 @@ def final_submit_screen(form_key="form_submit"):
             answers = load_data.build_answers()
             load_data.send_to_airtable(answers)
             st.session_state["form_submitted"] = True
-            st.experimental_rerun()
+            st.rerun()
