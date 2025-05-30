@@ -41,7 +41,7 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
 
     with st.form(form_key, enter_to_submit=True):
         # st.markdown(f"### {question_text}")
-        st.radio(f"### {question_text}", options + ["Другое"], index=None, key=answer_key)
+        st.radio(f"### {question_text}", options + ["Другое"], index=None, key=answer_key, label_visibility="hidden")
         if st.session_state.get(answer_key) == "Другое":
             st.text_input("Уточните:", key=other_input_key)
         st.form_submit_button("Далее", on_click=validate_answer)
@@ -122,9 +122,9 @@ def maxdiff_question(form_key, question_index, question_text, options):
     with st.form(form_key, enter_to_submit=True):
         st.markdown(f"### {question_text}")
         st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
-        st.radio("", options, index=None, key=most_key)
+        st.radio("", options, index=None, key=most_key, label_visibility="collapsed")
         st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
-        st.radio("", options, index=None, key=least_key)
+        st.radio("", options, index=None, key=least_key, label_visibility="collapsed")
         st.form_submit_button("Далее", on_click=validate_answer)
 
     if st.session_state.get("form_error"):
