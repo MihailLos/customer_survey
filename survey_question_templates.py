@@ -130,9 +130,9 @@ def maxdiff_question(form_key, question_index, question_text, options):
 
     with st.form(form_key, enter_to_submit=True):
         st.markdown(f"**{question_text}**")
-        st.markdown('<div style="background-color:#e6f4ea;padding:10px;border-radius:5px;"><b>Наиболее важная информация</b></div>', unsafe_allow_html=True)
+        st.write("🟢 **Наиболее важная информация**")
         st.radio("", options, index=None, key=most_key, label_visibility="collapsed")
-        st.markdown('<div style="background-color:#fdecea;padding:10px;border-radius:5px;"><b>Наименее важная информация</b></div>', unsafe_allow_html=True)
+        st.write("🔴 **Наименее важная информация**")
         st.radio("", options, index=None, key=least_key, label_visibility="collapsed")
         st.form_submit_button("Далее", on_click=validate_answer)
 
