@@ -54,6 +54,10 @@ if st.session_state.page == 0:
             padding: 0.5rem 1rem;
             border: none;
         }
+        div.stButton > button:hover {
+            background-color: #800000;
+            color:white;
+        }
         div.stButton > button:focus:not(:active) {
             background-color: #800000;
             color:white;
