@@ -148,6 +148,7 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
         }
         div.stButton > button:hover {
             background-color: #0b5ed7;
+            color:white;
         }
         </style>
     """, unsafe_allow_html=True)
