@@ -44,6 +44,22 @@ def go_next():
 
 # --- Страница 0: Приветствие ---
 if st.session_state.page == 0:
+    st.markdown("""
+        <style>
+        div.stButton > button {
+            background-color: #0d6efd;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            border: none;
+        }
+        div.stButton > button:hover {
+            background-color: #0b5ed7;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     st.title("Добро пожаловать в опрос!")
     st.markdown("#### **Кемеровский государственный университет** проводит исследование потребительских предпочтений при выборе пищевой продукции")
     st.markdown("**Цель опроса** — выявление ключевых факторов, определяющих потребительский выбор при покупке пищевой продукции.")
@@ -63,6 +79,22 @@ elif st.session_state.page == 3:
     sqt.triple_text_input("f_q3", "q3", "Вопрос 3. Напишите, какие 3 элемента маркировки, по Вашему мнению, должны быть выделены наиболее заметно на упаковке любой пищевой продукции?", ["Элемент 1:", "Элемент 2:", "Элемент 3:"])
 
 elif st.session_state.page == 4:
+    st.markdown("""
+        <style>
+        div.stButton > button {
+            background-color: #0d6efd;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            border: none;
+        }
+        div.stButton > button:hover {
+            background-color: #0b5ed7;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     st.markdown("### Блок вопросов 4–12: Сравнение важности информации на маркировке")
     st.markdown(
         """
