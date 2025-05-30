@@ -47,7 +47,7 @@ if st.session_state.page == 0:
     st.markdown("""
         <style>
         div.stButton > button {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color: white;
             font-weight: bold;
             border-radius: 6px;
@@ -55,23 +55,23 @@ if st.session_state.page == 0:
             border: none;
         }
         div.stButton > button:hover {
-            background-color: #800000;
+            background-color: #b53838;
             color:white;
         }
         div.stButton > button:active {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         div.stButton > button:focus:not(:active) {
-            background-color: #800000;
+            background-color: #b53838;
             color:white;
         }
         div.stButton > button:focus:(:active) {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         div.stButton > button:focus:active) {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         </style>
@@ -100,7 +100,7 @@ elif st.session_state.page == 4:
     st.markdown("""
         <style>
         div.stButton > button {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color: white;
             font-weight: bold;
             border-radius: 6px;
@@ -108,23 +108,23 @@ elif st.session_state.page == 4:
             border: none;
         }
         div.stButton > button:hover {
-            background-color: #800000;
+            background-color: #b53838;
             color:white;
         }
         div.stButton > button:active {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         div.stButton > button:focus:not(:active) {
-            background-color: #800000;
+            background-color: #b53838;
             color:white;
         }
         div.stButton > button:focus:(:active) {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         div.stButton > button:focus:active) {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         </style>

@@ -221,14 +221,10 @@ def maxdiff_question(form_key, question_index, question_text, options):
         st.error(st.session_state["form_error"])
 
 def final_submit_screen(form_key="form_submit"):
-    if st.session_state.get("form_submitted"):
-        st.markdown("### ✅ Ваши ответы успешно отправлены. Спасибо за участие!")
-        return
-    
     st.markdown("""
         <style>
         div.stButton > button {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color: white;
             font-weight: bold;
             border-radius: 6px;
@@ -236,27 +232,31 @@ def final_submit_screen(form_key="form_submit"):
             border: none;
         }
         div.stButton > button:hover {
-            background-color: #800000;
+            background-color: #b53838;
             color:white;
         }
         div.stButton > button:active {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         div.stButton > button:focus:not(:active) {
-            background-color: #800000;
+            background-color: #b53838;
             color:white;
         }
         div.stButton > button:focus:(:active) {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         div.stButton > button:focus:active) {
-            background-color: #ff0000;
+            background-color: #ff4b4b;
             color:white;
         }
         </style>
     """, unsafe_allow_html=True)
+
+    if st.session_state.get("form_submitted"):
+        st.markdown("### ✅ Ваши ответы успешно отправлены. Спасибо за участие!")
+        return
 
     with st.form(form_key, enter_to_submit=True):
         st.markdown("### Спасибо за участие в опросе!")
