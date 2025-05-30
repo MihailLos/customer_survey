@@ -44,46 +44,13 @@ def go_next():
 
 # --- Страница 0: Приветствие ---
 if st.session_state.page == 0:
-    st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #ff4b4b;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #b53838;
-            color:white;
-        }
-        div.stButton > button:active {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        div.stButton > button:focus:not(:active) {
-            background-color: #b53838;
-            color:white;
-        }
-        div.stButton > button:focus:(:active) {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        div.stButton > button:focus:active) {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
     st.title("Добро пожаловать в опрос!")
     st.markdown("#### **Кемеровский государственный университет** проводит исследование потребительских предпочтений при выборе пищевой продукции")
     st.markdown("**Цель опроса** — выявление ключевых факторов, определяющих потребительский выбор при покупке пищевой продукции.")
     st.markdown("Опрос займет не более 15 минут. Ваши ответы анонимны и будут использованы исключительно в исследовательских целях.")
     st.markdown("Обращаем ваше внимание, что все вопросы являются **обязательными к заполнению**.")
     st.markdown("Во избежание ошибок и некорректной работы анкеты, рекомендуем **не скрывать данную вкладку и не блокировать мобильное устройство** во время прохождения опроса.")
-    st.button("Начать опрос", on_click=go_next)
+    st.button("Начать опрос", on_click=go_next, icon="✏")
 
 # --- Страница 1: Вопросы 1–3 ---
 elif st.session_state.page == 1:
@@ -97,39 +64,6 @@ elif st.session_state.page == 3:
     sqt.triple_text_input("f_q3", "q3", "Вопрос 3. Напишите, какие 3 элемента маркировки, по Вашему мнению, должны быть выделены наиболее заметно на упаковке любой пищевой продукции?", ["Элемент 1:", "Элемент 2:", "Элемент 3:"])
 
 elif st.session_state.page == 4:
-    st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #ff4b4b;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #b53838;
-            color:white;
-        }
-        div.stButton > button:active {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        div.stButton > button:focus:not(:active) {
-            background-color: #b53838;
-            color:white;
-        }
-        div.stButton > button:focus:(:active) {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        div.stButton > button:focus:active) {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
     st.markdown("### Блок вопросов 4–12: Сравнение важности информации на маркировке")
     st.markdown(
         """

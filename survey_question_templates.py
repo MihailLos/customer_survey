@@ -5,22 +5,6 @@ import re
 def single_choice_question(form_key, question_key, question_text, options):
     answer_key = f"{form_key}_answer"
 
-    st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #0d6efd;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #0b5ed7;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
     def onclick():
         answer = st.session_state.get(answer_key)
         if not answer:
@@ -42,22 +26,6 @@ def single_choice_question(form_key, question_key, question_text, options):
 def single_choice_with_other(form_key, question_key, question_text, options, other_key):
     answer_key = f"{form_key}_{question_key}"
     other_input_key = f"{form_key}_{other_key}_input"
-
-    st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #0d6efd;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #0b5ed7;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
     def normalize(text):
         return re.sub(r'\s+', ' ', text.strip())
@@ -88,22 +56,6 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
 
 def multiple_choice_with_other(form_key, question_key, question_text, options, other_key):
     other_input_key = f"{form_key}_{other_key}_input"
-
-    st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #0d6efd;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #0b5ed7;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
     def normalize(text):
         return re.sub(r'\s+', ' ', text.strip())
@@ -136,23 +88,6 @@ def multiple_choice_with_other(form_key, question_key, question_text, options, o
 def triple_text_input(form_key, question_key_prefix, question_text, options):
     input_keys = [f"{form_key}_{question_key_prefix}_{i}" for i in range(1, len(options) + 1)]
 
-    st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #0d6efd;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #0b5ed7;
-            color:white;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
     def normalize(text):
         return re.sub(r'\s+', ' ', text.strip())
 
@@ -179,22 +114,6 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
 def maxdiff_question(form_key, question_index, question_text, options):
     most_key = f"{form_key}_most"
     least_key = f"{form_key}_least"
-
-    st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #0d6efd;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #0b5ed7;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
     def validate_answer():
         most = st.session_state.get(most_key)
