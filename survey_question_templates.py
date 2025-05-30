@@ -29,6 +29,7 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
     def validate_answer():
         answer = st.session_state.get(answer_key)
         other_text = st.session_state.get(other_input_key, "")
+        other_text = other_text.strip
         if not answer:
             st.session_state["form_error"] = "❌ Выберите один вариант ответа."
         elif answer == "Другое" and not other_text:
@@ -84,6 +85,10 @@ def triple_text_input(form_key, question_key_prefix, question_text, options):
 
     def validate_answer():
         values = [st.session_state.get(k, "") for k in input_keys]
+
+        for value in values:
+            value.strip
+
         if not all(values):
             st.session_state["form_error"] = "❌ Заполните все поля."
         else:
