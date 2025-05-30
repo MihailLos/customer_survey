@@ -222,36 +222,28 @@ def maxdiff_question(form_key, question_index, question_text, options):
 
 def final_submit_screen(form_key="form_submit"):
     st.markdown("""
-        <style>
-        div.stButton > button {
-            background-color: #ff4b4b;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
-            border: none;
-        }
-        div.stButton > button:hover {
-            background-color: #b53838;
-            color:white;
-        }
-        div.stButton > button:active {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        div.stButton > button:focus:not(:active) {
-            background-color: #b53838;
-            color:white;
-        }
-        div.stButton > button:focus:(:active) {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        div.stButton > button:focus:active) {
-            background-color: #ff4b4b;
-            color:white;
-        }
-        </style>
+    <style>
+    div.stButton > button {
+        background-color: #ff4b4b;
+        color: white;
+        font-weight: bold;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        border: none;
+    }
+    div.stButton > button:hover {
+        background-color: #b53838;
+        color: white;
+    }
+    div.stButton > button:active {
+        background-color: #ff4b4b;
+        color: white;
+    }
+    div.stButton > button:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    </style>
     """, unsafe_allow_html=True)
 
     if st.session_state.get("form_submitted"):
