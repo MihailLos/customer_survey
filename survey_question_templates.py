@@ -223,7 +223,7 @@ def maxdiff_question(form_key, question_index, question_text, options):
 def final_submit_screen(form_key="form_submit"):
     st.markdown("""
     <style>
-    div.stButton > button {
+    button[type="submit"] {
         background-color: #ff4b4b;
         color: white;
         font-weight: bold;
@@ -231,15 +231,15 @@ def final_submit_screen(form_key="form_submit"):
         padding: 0.5rem 1rem;
         border: none;
     }
-    div.stButton > button:hover {
+    button[type="submit"]:hover {
         background-color: #b53838;
         color: white;
     }
-    div.stButton > button:active {
+    button[type="submit"]:active {
         background-color: #ff4b4b;
         color: white;
     }
-    div.stButton > button:focus {
+    button[type="submit"]:focus {
         outline: none;
         box-shadow: none;
     }
