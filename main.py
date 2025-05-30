@@ -58,6 +58,10 @@ if st.session_state.page == 0:
             background-color: #0b5ed7;
             color:white;
         }
+        div.stButton > button:active {
+            background-color: #0d6efd;
+            color:white;
+        }
         </style>
     """, unsafe_allow_html=True)
 
