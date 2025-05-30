@@ -15,7 +15,7 @@ def single_choice_question(form_key, question_key, question_text, options):
             st.session_state.page += 1
 
     with st.form(form_key, enter_to_submit=True):
-        st.write(f"**{question_text}**")
+        st.markdown(f"**{question_text}**")
         st.radio("", options, index=None, key=answer_key, label_visibility="collapsed")
         st.form_submit_button("Далее", on_click=onclick)
 
