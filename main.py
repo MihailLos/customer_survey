@@ -47,19 +47,23 @@ if st.session_state.page == 0:
     st.markdown("""
         <style>
         div.stButton > button {
-            background-color: #0d6efd;
+            background-color: #ff0000;
             color: white;
             font-weight: bold;
             border-radius: 6px;
             padding: 0.5rem 1rem;
             border: none;
         }
-        div.stButton > button:hover {
-            background-color: #0b5ed7;
+        div.stButton > button:focus:not(:active) {
+            background-color: #800000;
             color:white;
         }
-        div.stButton > button:active {
-            background-color: #0d6efd;
+        div.stButton > button:focus:(:active) {
+            background-color: #ff0000;
+            color:white;
+        }
+        div.stButton > button:focus:active) {
+            background-color: #ff0000;
             color:white;
         }
         </style>
