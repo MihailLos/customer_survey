@@ -34,7 +34,7 @@ TOTAL_PAGES = 29
 # Показываем прогресс-бар только на вопросах
 if st.session_state.page not in [0, 4, 29]:
     current_page = st.session_state.page
-    progress = int((current_page / (TOTAL_PAGES - 2)) * 100)
+    progress = int((current_page / (TOTAL_PAGES - 1)) * 100)
     st.progress(progress)
     st.markdown(f"**Прогресс прохождения опроса: {progress}%**")
 
