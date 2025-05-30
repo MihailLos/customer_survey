@@ -100,7 +100,7 @@ elif st.session_state.page == 4:
     st.markdown("""
         <style>
         div.stButton > button {
-            background-color: #0d6efd;
+            background-color: #ff0000;
             color: white;
             font-weight: bold;
             border-radius: 6px;
@@ -108,7 +108,23 @@ elif st.session_state.page == 4:
             border: none;
         }
         div.stButton > button:hover {
-            background-color: #0b5ed7;
+            background-color: #800000;
+            color:white;
+        }
+        div.stButton > button:active {
+            background-color: #ff0000;
+            color:white;
+        }
+        div.stButton > button:focus:not(:active) {
+            background-color: #800000;
+            color:white;
+        }
+        div.stButton > button:focus:(:active) {
+            background-color: #ff0000;
+            color:white;
+        }
+        div.stButton > button:focus:active) {
+            background-color: #ff0000;
             color:white;
         }
         </style>
