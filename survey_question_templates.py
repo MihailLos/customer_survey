@@ -1,5 +1,6 @@
 import streamlit as st
 import load_data
+import re
 
 def single_choice_question(form_key, question_key, question_text, options):
     answer_key = f"{form_key}_answer"
@@ -26,10 +27,12 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
     answer_key = f"{form_key}_{question_key}"
     other_input_key = f"{form_key}_{other_key}_input"
 
+    def normalize(text):
+        return re.sub(r'\s+', ' ', text.strip())
+
     def validate_answer():
         answer = st.session_state.get(answer_key)
-        other_text = st.session_state.get(other_input_key, "")
-        other_text = other_text.strip
+        other_text = normalize(st.session_state.get(other_input_key, ""))
         if not answer:
             st.session_state["form_error"] = "❌ Выберите один вариант ответа."
         elif answer == "Другое" and not other_text:
@@ -41,8 +44,7 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
             st.session_state.page += 1
 
     with st.form(form_key, enter_to_submit=True):
-        # st.markdown(f"### {question_text}")
-        st.radio(f"### {question_text}", options + ["Другое"], index=None, key=answer_key, label_visibility="hidden")
+        st.radio(f"### {question_text}", options + ["Другое"], index=None, key=answer_key)
         if st.session_state.get(answer_key) == "Другое":
             st.text_input("Уточните:", key=other_input_key)
         st.form_submit_button("Далее", on_click=validate_answer)
@@ -52,12 +54,14 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
 
 
 def multiple_choice_with_other(form_key, question_key, question_text, options, other_key):
-    selection_key = f"{form_key}_{question_key}"
     other_input_key = f"{form_key}_{other_key}_input"
+
+    def normalize(text):
+        return re.sub(r'\s+', ' ', text.strip())
 
     def validate_answer():
         selected = [opt for opt in options + ["Другое"] if st.session_state.get(f"{form_key}_{question_key}_{opt}")]
-        other_text = st.session_state.get(other_input_key, "")
+        other_text = normalize(st.session_state.get(other_input_key, ""))
         if not selected:
             st.session_state["form_error"] = "❌ Выберите хотя бы один вариант."
         elif "Другое" in selected and not other_text:
@@ -83,12 +87,11 @@ def multiple_choice_with_other(form_key, question_key, question_text, options, o
 def triple_text_input(form_key, question_key_prefix, question_text, options):
     input_keys = [f"{form_key}_{question_key_prefix}_{i}" for i in range(1, len(options) + 1)]
 
+    def normalize(text):
+        return re.sub(r'\s+', ' ', text.strip())
+
     def validate_answer():
-        values = [st.session_state.get(k, "") for k in input_keys]
-
-        for value in values:
-            value.strip
-
+        values = [normalize(st.session_state.get(k, "")) for k in input_keys]
         if not all(values):
             st.session_state["form_error"] = "❌ Заполните все поля."
         else:
