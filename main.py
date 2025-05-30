@@ -58,6 +58,10 @@ if st.session_state.page == 0:
             background-color: #800000;
             color:white;
         }
+        div.stButton > button:active {
+            background-color: #ff0000;
+            color:white;
+        }
         div.stButton > button:focus:not(:active) {
             background-color: #800000;
             color:white;
