@@ -44,7 +44,8 @@ def single_choice_with_other(form_key, question_key, question_text, options, oth
             st.session_state.page += 1
 
     with st.form(form_key, enter_to_submit=True):
-        st.radio(f"### {question_text}", options + ["Другое"], index=None, key=answer_key)
+        st.markdown(f"### {question_text}")
+        st.radio("", options + ["Другое"], index=None, key=answer_key, label_visibility="collapsed")
         if st.session_state.get(answer_key) == "Другое":
             st.text_input("Уточните:", key=other_input_key)
         st.form_submit_button("Далее", on_click=validate_answer)
