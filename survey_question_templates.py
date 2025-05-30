@@ -221,41 +221,38 @@ def maxdiff_question(form_key, question_index, question_text, options):
         st.error(st.session_state["form_error"])
 
 def final_submit_screen(form_key="form_submit"):
-    st.markdown("""
-    <style>
-    button[type="submit"] {
-        background-color: #ff4b4b;
-        color: white;
-        font-weight: bold;
-        border-radius: 6px;
-        padding: 0.5rem 1rem;
-        border: none;
-    }
-    button[type="submit"]:hover {
-        background-color: #b53838;
-        color: white;
-    }
-    button[type="submit"]:active {
-        background-color: #ff4b4b;
-        color: white;
-    }
-    button[type="submit"]:focus {
-        outline: none;
-        box-shadow: none;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
     if st.session_state.get("form_submitted"):
         st.markdown("### ✅ Ваши ответы успешно отправлены. Спасибо за участие!")
         return
 
-    with st.form(form_key, enter_to_submit=True):
-        st.markdown("### Спасибо за участие в опросе!")
-        st.markdown("Пожалуйста, нажмите кнопку ниже, чтобы отправить свои ответы.")
-        submitted = st.form_submit_button("Отправить анкету")
-        if submitted:
-            answers = load_data.build_answers()
-            load_data.send_to_airtable(answers)
-            st.session_state["form_submitted"] = True
-            st.rerun()
+    # Добавим CSS-стиль
+    st.markdown("""
+        <style>
+        #submit-btn {
+            background-color: #ff4b4b;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+        }
+        #submit-btn:hover {
+            background-color: #b53838;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Кнопка формы "вручную"
+    with st.form(form_key, clear_on_submit=False):
+        st.write("**Спасибо за участие в опросе!**")
+        st.write("Пожалуйста, нажмите кнопку ниже, чтобы отправить свои ответы.")
+        st.markdown('<button type="submit" id="submit-btn">Отправить анкету</button>', unsafe_allow_html=True)
+        submitted = st.form_submit_button(label="__fake__", disabled=True)  # скрытый "реальный" триггер
+
+    # Проверка отправки
+    if submitted:
+        answers = load_data.build_answers()
+        load_data.send_to_airtable(answers)
+        st.session_state["form_submitted"] = True
+        st.rerun()
