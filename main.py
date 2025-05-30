@@ -56,6 +56,7 @@ if st.session_state.page == 0:
         }
         div.stButton > button:hover {
             background-color: #0b5ed7;
+            color:white;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -91,6 +92,7 @@ elif st.session_state.page == 4:
         }
         div.stButton > button:hover {
             background-color: #0b5ed7;
+            color:white;
         }
         </style>
     """, unsafe_allow_html=True)
